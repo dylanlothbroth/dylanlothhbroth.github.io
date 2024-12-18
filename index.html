@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zalar AI - Futuristic Chatbot</title>
+    <style>
+        body {
+            background: #0f172a; /* Deep futuristic background */
+            color: #f8fafc; /* Bright text for contrast */
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        h1 {
+            font-size: 3rem;
+            color: #38bdf8; /* Futuristic blue */
+            text-shadow: 0 0 10px #38bdf8, 0 0 20px #38bdf8;
+        }
+        .chat-container {
+            width: 90%;
+            max-width: 600px;
+            background: #1e293b; /* Dark chat background */
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+        }
+        .messages {
+            flex: 1;
+            overflow-y: auto;
+            max-height: 400px;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #334155; /* Subtle border */
+            border-radius: 8px;
+            background: #0f172a;
+        }
+        .message {
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 10px;
+            line-height: 1.4;
+        }
+        .message.user {
+            background: #38bdf8;
+            color: #0f172a;
+            align-self: flex-end;
+        }
+        .message.ai {
+            background: #64748b;
+            color: #f8fafc;
+            align-self: flex-start;
+        }
+        .input-container {
+            display: flex;
+        }
+        .input-container input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            outline: none;
+            font-size: 1rem;
+        }
+        .input-container button {
+            padding: 10px 20px;
+            border: none;
+            background: #38bdf8;
+            color: #0f172a;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 0 5px 5px 0;
+            outline: none;
+            transition: background 0.3s;
+        }
+        .input-container button:hover {
+            background: #0ea5e9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Zalar AI</h1>
+    <div class="chat-container">
+        <div class="messages" id="messages"></div>
+        <div class="input-container">
+            <input type="text" id="userInput" placeholder="Ask Zalar anything..." />
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        const messagesDiv = document.getElementById("messages");
+
+        // Sample responses for Zalar
+        const zalarResponses = [
+            "Greetings, human. How can I assist you today?",
+            "I am Zalar, your AI companion. Let me know your questions.",
+            "The future is bright, and so are your ideas. What would you like to discuss?",
+            "Ah, a curious mind! Let's unravel the mysteries of the universe together.",
+            "Processing your request... just kidding, I'm always ready for a chat.",
+            "Did you know? I was designed to help and learn from conversations like this."
+        ];
+
+        // Function to add a message to the chat
+        function addMessage(content, sender) {
+            const message = document.createElement("div");
+            message.classList.add("message", sender);
+            message.textContent = content;
+            messagesDiv.appendChild(message);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight; // Auto-scroll
+        }
+
+        // Function to handle user input
+        function sendMessage() {
+            const userInput = document.getElementById("userInput").value.trim();
+            if (!userInput) return;
+
+            // Add user's message
+            addMessage(userInput, "user");
+            document.getElementById("userInput").value = "";
+
+            // Generate Zalar's response
+            const response = generateResponse(userInput);
+            setTimeout(() => addMessage(response, "ai"), 500); // Simulate thinking
+        }
+
+        // Function to generate AI-like responses
+        function generateResponse(input) {
+            // Basic pattern-matching for human-like behavior
+            input = input.toLowerCase();
+            if (input.includes("how are you")) return "I am but a humble AI, but I would say I am operating optimally.";
+            if (input.includes("what is your name")) return "My name is Zalar. I was designed to assist and inspire.";
+            if (input.includes("tell me a joke")) return "Why did the AI cross the road? To optimize its path, of course!";
+            if (input.includes("what can you do")) return "I can chat with you, answer simple questions, and make your day a little more futuristic!";
+            
+            // Default response
+            return zalarResponses[Math.floor(Math.random() * zalarResponses.length)];
+        }
+    </script>
+</body>
+</html>
